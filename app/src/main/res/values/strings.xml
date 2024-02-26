@@ -4,8 +4,8 @@
     <string name="input_numbers">Введите число</string>
     <string name="input">Ввод</string>
     <string name="hint">Подсказка</string>
-    <string name="hint1">Загаданное число меньше %1\$d .</string>
-    <string name="hint2">Загаданное число больше %1\$d.</string>
+    <string name="hint1">Загаданное число меньше.</string>
+    <string name="hint2">Загаданное число больше.</string>
     <string name="error3">Ошибка! Недопустимый ввод.</string>
     <string name="offset">Поздравляю! Верный ответ.</string>
     <string name="gues_number">Угадайте число от 1 до 10</string>

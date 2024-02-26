@@ -8,6 +8,21 @@
     android:background="@color/white"
 
     >
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/group1"
+        app:constraint_referenced_ids="tv_hint, tv_hint2,tv_quantity,tv_quantity2, bt1, ed_text"
+        />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/group2"
+        app:constraint_referenced_ids="bt2, bt3"
+        android:visibility="gone"
+        />
+
 <TextView
     android:id="@+id/tv1"
     android:layout_width="150dp"
@@ -141,7 +156,7 @@
         android:text="@string/yes"
         android:textSize="22sp"
         android:textColor="@color/white"
-        android:visibility="gone"
+
 
         />
 <Button
@@ -157,6 +172,6 @@
     android:text="@string/no"
     android:textSize="22sp"
     android:textColor="@color/white"
-    android:visibility="gone"
+
     />
 </androidx.constraintlayout.widget.ConstraintLayout>
