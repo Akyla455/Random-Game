@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupViews(){
-        viewBinding.tvQuantity2.text = viewModel.attempts.toString()
+        updateAttempts()
         viewBinding.bt1.setOnClickListener {
             val userInput = viewBinding.edText.text.toString().toIntOrNull()
             if(userInput != null){
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun observerGameState(){
+    private fun observerGameState(){
         viewModel.gameState.observe(this, Observer { gameState ->
             when(gameState){
                 is GameState.InputRequest -> {
