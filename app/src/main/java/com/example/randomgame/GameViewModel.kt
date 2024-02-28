@@ -6,19 +6,20 @@ import androidx.lifecycle.ViewModel
 
 
 sealed class GameState{
-    object InputRequest: GameState()
-    object Win: GameState()
-    object Greater: GameState()
-    object Less: GameState()
-
-
-
+    data class InputRequest(val resource: Int): GameState()
+    data class Win(val resource: Int): GameState()
+    data class Game(val resource: Int, val attempts: Int ): GameState()
 
 }
+
+
+
+
+
 class GameViewModel: ViewModel() {
 
     private var random = randomNumbers()
-    var attempts = 0
+    private var getAttempts = 0
 
     private val _gameState = MutableLiveData<GameState>()
     val gameState: LiveData<GameState>
@@ -29,24 +30,27 @@ class GameViewModel: ViewModel() {
     }
     private fun startNewGame(){
         random = randomNumbers()
-        attempts = 0
-        _gameState.value = GameState.InputRequest
+        getAttempts = 0
+        _gameState.value = GameState.InputRequest(R.string.input_request)
     }
 
     fun checkUserInput(userInput: Int){
-        attempts++
+        getAttempts++
         if(userInput == random){
-            _gameState.value = GameState.Win
-        } else if (userInput > random){
-            _gameState.value = GameState.Greater
+            _gameState.value = GameState.Win(R.string.request)
 
-        } else _gameState.value = GameState.Less
+        } else if (userInput > random){
+            _gameState.value = GameState.Game(R.string.hint1,getAttempts)
+
+        } else {
+            _gameState.value = GameState.Game(R.string.hint2, getAttempts)
+        }
 
 
     }
 
     fun restartTheGame(){
-       startNewGame()
+        startNewGame()
     }
 
     private fun randomNumbers(): Int {
