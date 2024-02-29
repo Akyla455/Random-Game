@@ -1,25 +1,23 @@
 package com.example.randomgame
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 
-sealed class GameState{
-    data class InputRequest(val resource: Int): GameState()
-    data class Win(val resource: Int): GameState()
-    data class Game(val resource: Int, val attempts: Int ): GameState()
+sealed class GameState {
+    data class InputRequest(@StringRes val titleResource: Int) : GameState()
+    data class Win(@StringRes val titleResource: Int) : GameState()
+    data class Game(@StringRes val hintResource: Int, val attempts: Int) : GameState()
 
 }
 
 
-
-
-
-class GameViewModel: ViewModel() {
+class GameViewModel : ViewModel() {
 
     private var random = randomNumbers()
-    private var getAttempts = 0
+    private var attempts = 0
 
     private val _gameState = MutableLiveData<GameState>()
     val gameState: LiveData<GameState>
@@ -28,28 +26,29 @@ class GameViewModel: ViewModel() {
     init {
         startNewGame()
     }
-    private fun startNewGame(){
+
+    private fun startNewGame() {
         random = randomNumbers()
-        getAttempts = 0
+        attempts = 0
         _gameState.value = GameState.InputRequest(R.string.input_request)
     }
 
-    fun checkUserInput(userInput: Int){
-        getAttempts++
-        if(userInput == random){
+    fun checkUserInput(userInput: Int) {
+        attempts++
+        if (userInput == random) {
             _gameState.value = GameState.Win(R.string.request)
 
-        } else if (userInput > random){
-            _gameState.value = GameState.Game(R.string.hint1,getAttempts)
+        } else if (userInput > random) {
+            _gameState.value = GameState.Game(R.string.hint1, attempts)
 
         } else {
-            _gameState.value = GameState.Game(R.string.hint2, getAttempts)
+            _gameState.value = GameState.Game(R.string.hint2, attempts)
         }
 
 
     }
 
-    fun restartTheGame(){
+    fun restartTheGame() {
         startNewGame()
     }
 
@@ -58,7 +57,6 @@ class GameViewModel: ViewModel() {
         val max = 10
         return (min..max).random()
     }
-
 
 
 }
